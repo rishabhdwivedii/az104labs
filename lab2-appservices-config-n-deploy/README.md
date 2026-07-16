@@ -267,21 +267,6 @@ allow applications and automation tools to update App Service configuration prog
 
 ---
 
-# Common App Service Configuration
-
-Besides custom application settings, App Service supports configuring:
-
-- Connection Strings
-- Runtime Stack
-- Startup Commands
-- Always On
-- Health Checks
-- ARR Affinity
-- HTTP Version
-- TLS Version
-- Diagnostic Logging
-- Managed Identity
-- Authentication
 
 ---
 
@@ -455,12 +440,3 @@ Verify that:
 - Updating a secret in Key Vault changes the application's behavior without modifying the application code.
 - Infrastructure, application deployment, and configuration are all managed through Azure DevOps.
 
-## Stretch Goals
-
-- Parameterize the ARM template for different environments (Development, Test, Production).
-- Add deployment stages and approvals to the Azure DevOps pipeline.
-- Store sensitive pipeline values in Azure DevOps Variable Groups linked to Azure Key Vault.
-- Enable diagnostic logging and Application Insights for the App Service.
-- Replace ARM Templates with Bicep and compare the authoring experience.
-
-This follow-up assignment demonstrates a complete Infrastructure as Code workflow, secure secret management using Azure Key Vault, and modern application deployment practices using Azure DevOps.
