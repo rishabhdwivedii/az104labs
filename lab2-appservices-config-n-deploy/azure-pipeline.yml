@@ -1,0 +1,75 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  azureServiceConnection: 'azlabtesting'
+  resourceGroup: 'azlabappservices'
+  webAppName: 'az104demoapp12345'
+
+steps:
+
+- checkout: self
+
+- task: NodeTool@0
+  inputs:
+    versionSpec: '20.x'
+  displayName: Install Node.js
+
+- script: |
+    cd website
+    npm install
+  displayName: Install Dependencies
+
+- task: ArchiveFiles@2
+  displayName: Create Deployment Package
+  inputs:
+    rootFolderOrFile: website
+    includeRootFolder: false
+    archiveType: zip
+    archiveFile: $(Build.ArtifactStagingDirectory)/website.zip
+    replaceExistingArchive: true
+
+- task: AzureCLI@2
+  displayName: Deploy to Azure App Service
+
+  inputs:
+    azureSubscription: $(azureServiceConnection)
+    scriptType: bash
+    scriptLocation: inlineScript
+
+    inlineScript: |
+
+      set -e
+
+      echo "Deploying application..."
+
+      az webapp deploy \
+        --resource-group $(resourceGroup) \
+        --name $(webAppName) \
+        --src-path $(Build.ArtifactStagingDirectory)/website.zip \
+        --type zip
+
+      echo "Updating App Settings..."
+
+      az webapp config appsettings set \
+        --resource-group $(resourceGroup) \
+        --name $(webAppName) \
+        --settings \
+          GREETING="Welcome to AZ-104 Training" \
+          ENVIRONMENT="Development" \
+          VERSION="1.0"
+
+      echo "Restarting application..."
+
+      az webapp restart \
+        --resource-group $(resourceGroup) \
+        --name $(webAppName)
+
+      echo ""
+      echo "=========================================="
+      echo "Application URL"
+      echo "https://$(webAppName).azurewebsites.net"
+      echo "=========================================="

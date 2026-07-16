@@ -1,0 +1,33 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  azureServiceConnection: 'azlabtesting'
+  resourceGroup: 'rg-demo'
+  location: 'East US'
+
+steps:
+
+- checkout: self
+
+- task: AzureCLI@2
+  displayName: Deploy ARM Template
+
+  inputs:
+    azureSubscription: $(azureServiceConnection)
+    scriptType: bash
+    scriptLocation: inlineScript
+
+    inlineScript: |
+
+      az group create \
+        --name $(resourceGroup) \
+        --location "$(location)"
+
+      az deployment group create \
+        --resource-group $(resourceGroup) \
+        --template-file infra/azuredeploy.json \
+        --parameters @infra/azuredeploy.parameters.json
