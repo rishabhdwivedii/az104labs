@@ -319,6 +319,6 @@ After completing this lab, you should be able to:
 
 ---
 
-## Next Lab
+## Followup Lab (maybe try)
 
-In **Lab 2**, you will extend this deployment by provisioning additional Azure resources (such as Virtual Networks, Network Security Groups, or App Services) and explore how to manage more complex infrastructure deployments using Infrastructure as Code (IaC).
+In **Followup Lab**, you will extend this deployment by provisioning additional Azure resources (such as Virtual Networks, Network Security Groups, or App Services) and explore how to manage more complex infrastructure deployments using Infrastructure as Code (IaC).
