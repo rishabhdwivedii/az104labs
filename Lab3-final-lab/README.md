@@ -1,6 +1,3 @@
-Yes. In fact, I think the third lab should **feel like a natural continuation** of Lab 1 (ARM Templates) and Lab 2 (App Service Configuration), while borrowing the **Microsoft Learn writing style**. The goal is that students don't just deploy an App Service—they deploy it into a realistic hub-and-spoke network and configure it securely.
-
-I'd avoid introducing Azure Firewall or Key Vault in the main lab because that increases complexity and cost. Instead, make the core lab about **networking + App Service deployment**, then leave Key Vault as the follow-up challenge.
 
 ---
 
